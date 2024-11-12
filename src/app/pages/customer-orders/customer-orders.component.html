@@ -1,0 +1,52 @@
+<div class="container mt-3">
+  <!-- NavBar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Customer Orders</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/coffee" routerLinkActive="active">Coffees</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Formulário para adicionar ou atualizar pedidos -->
+  <h1>Customer Orders</h1>
+  <form (submit)="onSubmit()" class="mb-3">
+    <div class="input-group">
+      <input
+        *ngIf="!editingOrder"
+        type="text"
+        [(ngModel)]="newOrder.customerName"
+        name="customerName"
+        placeholder="Customer Name"
+        class="form-control"
+        required
+      />
+      <input
+        *ngIf="editingOrder"
+        type="text"
+        [(ngModel)]="editingOrder.customerName"
+        name="customerName"
+        placeholder="Customer Name"
+        class="form-control"
+        required
+      />
+      <button type="submit" class="btn btn-primary">{{ editingOrder ? 'Update' : 'Add' }}</button>
+      <button *ngIf="editingOrder" type="button" (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+    </div>
+  </form>
+
+  <!-- Lista de pedidos -->
+  <ul class="list-group">
+    <li *ngFor="let order of orders" class="list-group-item d-flex justify-content-between">
+      {{ order.customerName }}
+      <button class="btn btn-warning btn-sm" (click)="editOrder(order)">Edit</button>
+      <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">Delete</button>
+    </li>
+  </ul>
+</div>
