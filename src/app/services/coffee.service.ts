@@ -19,7 +19,7 @@ export class CoffeeService {
     return this.http.get<ICoffee[]>(`${this.api}/${this.getCoffee}`);
   }
 
-  getCoffeeBId(id: number) {
+  getCoffeeById(id: number) {
     return this.http.get<ICoffee>(`${this.api}/${this.getCoffee}/${id}`);
   }
 

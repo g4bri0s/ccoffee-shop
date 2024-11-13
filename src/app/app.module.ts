@@ -10,6 +10,7 @@ import { CustomerOrdersComponent } from './pages/customer-order/customer-orders/
 import { RegisterCoffeeComponent } from './pages/coffee/register-coffee/register-coffee.component';
 import { CoffeesComponent } from './pages/coffee/coffees/coffees.component';
 import { AppRoutingModule } from './app-routing.module';
+import { EditCoffeeComponent } from './pages/coffee/edit-coffee/edit-coffee.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AppRoutingModule } from './app-routing.module';
     EditCustomerOrderComponent,
     CustomerOrdersComponent,
     RegisterCoffeeComponent,
-    CoffeesComponent
+    CoffeesComponent,
+    EditCoffeeComponent
   ],
   imports: [
     BrowserModule,
