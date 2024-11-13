@@ -10,7 +10,7 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CoffeeService {
-  getCoffee = 'coffee';
+  getCoffee = 'coffees';
   api = environment.api;
 
   constructor(private http: HttpClient) {}
