@@ -1,0 +1,40 @@
+<div class="mb-2 mt-2 ms-5">
+    <h1 class="display-6">Coffees</h1>
+  </div>
+  <hr />
+  
+  <div class="ms-5 me-5">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let coffee of coffees">
+          <td scope="row">{{ coffee.name }}</td>
+          <td>{{ coffee.price | currency : "BRL" }}</td>
+          <td>
+            <a
+              [routerLink]="['/clientes/edit/', coffee.id]"
+              class="btn btn-primary"
+            >
+              <i class="fa fa-pencil" title="Edit"></i
+            ></a>
+            <button
+              class="btn btn-danger mx-2"
+              (click)="confirmDelete(coffee.id)"
+            >
+              <i class="fa fa-trash" title="Delete"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <div class="d-flex justify-content-end">
+      <a routerLink="/coffee/new" class="btn btn-dark">New coffee</a>
+    </div>
+  </div>

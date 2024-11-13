@@ -1,23 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoffeesComponent } from './pages/coffees/coffees.component'; 
-import { CustomerOrdersComponent } from './pages/customer-orders/customer-orders.component'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { RegisterCustomerOrderComponent } from './pages/customer-order/register-customer-order/register-customer-order.component';
+import { EditCustomerOrderComponent } from './pages/customer-order/edit-customer-order/edit-customer-order.component';
+import { CustomerOrdersComponent } from './pages/customer-order/customer-orders/customer-orders.component';
+import { RegisterCoffeeComponent } from './pages/coffee/register-coffee/register-coffee.component';
+import { CoffeesComponent } from './pages/coffee/coffees/coffees.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CoffeesComponent, 
-    CustomerOrdersComponent, 
+    NavbarComponent,
+    RegisterCustomerOrderComponent,
+    EditCustomerOrderComponent,
+    CustomerOrdersComponent,
+    RegisterCoffeeComponent,
+    CoffeesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
-    FormsModule,
-    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

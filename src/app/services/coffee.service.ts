@@ -1,32 +1,64 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { ICoffee } from '../interfaces/coffee';
+import { IRegisterCoffee } from 'src/app/interfaces/registerCoffee';
+import { EMPTY, Observable, map, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoffeeService {
-  private baseUrl = 'http://localhost:8080/coffees';
+  getCoffee = 'coffee';
+  api = environment.api;
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}`);
+  getCoffees() {
+    return this.http.get<ICoffee[]>(`${this.api}/${this.getCoffee}`);
   }
 
-  getById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  getCoffeeBId(id: number) {
+    return this.http.get<ICoffee>(`${this.api}/${this.getCoffee}/${id}`);
   }
 
-  create(coffee: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}`, coffee);
+  existCoffeeById(id: number): Observable<boolean> {
+    return this.http
+      .get<ICoffee>(`${this.api}/${this.getCoffee}/${id}`)
+      .pipe(
+        map((response) => {
+          return response !== null;
+        }),
+        catchError((error) => {
+          if (error.status === 404) {
+            return of(false);
+          } else {
+            throw error;
+          }
+        }),
+        map((exists) => {
+          return exists as boolean;
+        })
+      );
   }
 
-  update(id: number, coffee: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${id}`, coffee);
+  registerCoffee(coffee: IRegisterCoffee): Observable<any> {
+    return this.http.post(`${this.api}/${this.getCoffee}`, coffee).pipe(
+      tap(() => {
+        return of(null);
+      }),
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  editCoffee(id: number, coffee: ICoffee) {
+    return this.http.put(`${this.api}/${this.getCoffee}/${id}`, coffee);
+  }
+
+  deleteCoffee(id: number) {
+    return this.http.delete(`${this.api}/${this.getCoffee}/${id}`);
   }
 }

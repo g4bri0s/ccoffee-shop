@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CoffeesComponent } from './pages/coffees/coffees.component'; // Importe o CoffeesComponent
-import { CustomerOrdersComponent } from './pages/customer-orders/customer-orders.component'; // Importe o CustomerOrdersComponent
+import { CoffeesComponent } from './pages/coffee/coffees/coffees.component';
+import { RegisterCoffeeComponent } from './pages/coffee/register-coffee/register-coffee.component';
 
 const routes: Routes = [
-  { path: 'coffee', component: CoffeesComponent },
-  { path: 'customer-orders', component: CustomerOrdersComponent },
-  { path: '', redirectTo: '/coffee', pathMatch: 'full' },  // Alterado para /coffee
-  { path: '**', redirectTo: '/coffee' },
+  { path: 'coffees', component: CoffeesComponent },
+  { path: 'register-coffee', component: RegisterCoffeeComponent },
+  //adicionar outras rotas
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
