@@ -10,12 +10,12 @@ import Swal from 'sweetalert2';
 })
 
 export class ItemComponent {
-  coffees: IItem[] = [];
+  items: IItem[] = [];
   constructor(private ItemService: ItemService) {}
 
   ngOnInit() {
     this.ItemService.getItems().subscribe((result: IItem[]) => {
-      this.coffees = result;
+      this.items = result;
     });
   }
 
