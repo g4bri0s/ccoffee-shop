@@ -11,7 +11,7 @@ import { RegisterCoffeeComponent } from './pages/coffee/register-coffee/register
 import { CoffeesComponent } from './pages/coffee/coffees/coffees.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EditCoffeeComponent } from './pages/coffee/edit-coffee/edit-coffee.component';
-import { ItemComponent } from './pages/item/item.component';
+import { ItemComponent } from './pages/item/itens/item.component';
 
 @NgModule({
   declarations: [
