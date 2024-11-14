@@ -11,6 +11,7 @@ import { RegisterCoffeeComponent } from './pages/coffee/register-coffee/register
 import { CoffeesComponent } from './pages/coffee/coffees/coffees.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EditCoffeeComponent } from './pages/coffee/edit-coffee/edit-coffee.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EditCoffeeComponent } from './pages/coffee/edit-coffee/edit-coffee.comp
     CustomerOrdersComponent,
     RegisterCoffeeComponent,
     CoffeesComponent,
-    EditCoffeeComponent
+    EditCoffeeComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
