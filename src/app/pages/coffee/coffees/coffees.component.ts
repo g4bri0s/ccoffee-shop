@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ICoffee } from 'src/app/interfaces/coffee';
-import {CoffeeService } from 'src/app/services/coffee.service';
+import { CoffeeService } from 'src/app/services/coffee.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class CoffeesComponent {
   coffees: ICoffee[] = [];
-  constructor(private CoffeeService: CoffeeService) {}
+  constructor(private CoffeeService: CoffeeService) { }
 
   ngOnInit() {
     this.CoffeeService.getCoffees().subscribe((result: ICoffee[]) => {

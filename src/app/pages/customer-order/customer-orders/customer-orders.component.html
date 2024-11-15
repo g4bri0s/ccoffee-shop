@@ -7,8 +7,8 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Options</th>
+          <th scope="col" style="width: 80%;">Customer Name</th>
+          <th scope="col" style="width: 20%;">Options</th>
         </tr>
       </thead>
       <tbody>
@@ -16,7 +16,7 @@
           <td scope="row">{{ order.customerName }}</td>
           <td>
             <a
-              [routerLink]="['/orders/', order.id]"
+              [routerLink]="['/customerOrders/', order.id]"
               class="btn btn-primary"
             >
               <i class="fa fa-pencil" title="Edit"></i
@@ -32,7 +32,7 @@
       </tbody>
     </table>
     <br />
-    <div class="d-flex justify-content-end">
-      <a routerLink="/order/new" class="btn btn-dark">New order</a>
+    <div class="d-flex justify-content-end sticky-bottom p-3">
+      <a routerLink="/customerOrders/new" class="btn btn-dark">New order</a>
     </div>
   </div>

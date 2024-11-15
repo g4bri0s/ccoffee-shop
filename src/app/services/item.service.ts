@@ -10,7 +10,7 @@ import { IRegisterItem } from '../interfaces/registerItem';
   providedIn: 'root'
 })
 export class ItemService {
-  getItem = 'itens';
+  getItem = 'items';
   api = environment.api;
 
   constructor(private http: HttpClient) {}

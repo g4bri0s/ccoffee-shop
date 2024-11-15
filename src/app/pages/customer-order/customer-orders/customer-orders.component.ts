@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IOrder } from 'src/app/interfaces/order';
+import { IOrder } from 'src/app/interfaces/customerOrder';
 
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import Swal from 'sweetalert2';
@@ -61,7 +61,7 @@ export class CustomerOrdersComponent {
           this.swalWithBootstrapButtons.fire({
             icon: 'error',
             title: 'Cancelled!',
-            text: 'order data is safe :)',
+            text: 'Order data is safe :)',
             timer: 2000,
           });
         }

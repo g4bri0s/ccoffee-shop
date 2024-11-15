@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IRegisterOrder } from 'src/app/interfaces/registerOrder';
-import { IOrder } from 'src/app/interfaces/order';
+import { IRegisterOrder } from 'src/app/interfaces/registerCustomerOrder';
+import { IOrder } from 'src/app/interfaces/customerOrder';
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class RegisterCustomerOrderComponent {
 
-  constructor(private orderService: CustomerOrdersService, private router: Router) {}
+  constructor(private orderService: CustomerOrdersService, private router: Router) { }
 
   registerOrderForm = new FormGroup({
     id: new FormControl(0, Validators.required),
@@ -24,7 +24,9 @@ export class RegisterCustomerOrderComponent {
     const order: IOrder = {
       id: this.registerOrderForm.value.id || 0,
       customerName: this.registerOrderForm.value.customerName || '',
-    };    const saveOrder: IRegisterOrder = {
+    };
+
+    const saveOrder: IRegisterOrder = {
       customerName: order.customerName,
     };
 
@@ -41,16 +43,19 @@ export class RegisterCustomerOrderComponent {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Unexpected erro',
+          text: 'Unexpected error',
         });
       }
     );
-  };
+  }
 
-  refreshPagAfterButton(redirectedPage: string) {
+  refreshPageAfterButton(redirectedPage: string) {
     setTimeout(() => {
       this.router.navigate([`${redirectedPage}`]);
     }, 2000);
   }
+
+  cancel() {
+    this.router.navigate(['/customerOrders']);
+  }
 }
- 

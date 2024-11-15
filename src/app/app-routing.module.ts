@@ -6,22 +6,22 @@ import { EditCoffeeComponent } from './pages/coffee/edit-coffee/edit-coffee.comp
 import { CustomerOrdersComponent } from './pages/customer-order/customer-orders/customer-orders.component';
 import { RegisterCustomerOrderComponent } from './pages/customer-order/register-customer-order/register-customer-order.component';
 import { EditCustomerOrderComponent } from './pages/customer-order/edit-customer-order/edit-customer-order.component';
-import { ItemComponent } from './pages/item/itens/item.component';
+import { ItemComponent } from './pages/item/items/item.component';
 import { EditItemComponent } from './pages/item/edit-item/edit-item.component';
 
 const routes: Routes = [
   { path: 'coffees', component: CoffeesComponent },
-  { path: 'coffee/new', component: RegisterCoffeeComponent },
+  { path: 'coffees/new', component: RegisterCoffeeComponent },
   { path: 'coffees/:id', component: EditCoffeeComponent },
-  { path: 'orders', component: CustomerOrdersComponent },
-  { path: 'order/new', component: RegisterCustomerOrderComponent },
-  { path: 'order/:id', component: EditCustomerOrderComponent },
-  { path: 'itens', component: ItemComponent },
-  { path: 'item/:id', component: EditItemComponent },
+  { path: 'customerOrders', component: CustomerOrdersComponent },
+  { path: 'customerOrders/new', component: RegisterCustomerOrderComponent },
+  { path: 'customerOrders/:id', component: EditCustomerOrderComponent },
+  { path: 'items', component: ItemComponent },
+  { path: 'items/:id', component: EditItemComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

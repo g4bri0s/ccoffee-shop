@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IOrder } from 'src/app/interfaces/order';
+import { IOrder } from 'src/app/interfaces/customerOrder';
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import Swal from 'sweetalert2';
 
@@ -16,7 +16,7 @@ export class EditCustomerOrderComponent {
     private orderService: CustomerOrdersService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   editOrderForm = new FormGroup({
     id: new FormControl(0, Validators.required),
@@ -60,11 +60,11 @@ export class EditCustomerOrderComponent {
       (result) => {
         Swal.fire({
           icon: 'success',
-          title: 'order saved',
+          title: 'Order saved',
           showConfirmButton: false,
           timer: 1500,
         });
-        setTimeout(function () {}, 2000);
+        setTimeout(function () { }, 2000);
       },
       (error) => {
         Swal.fire({
@@ -77,9 +77,13 @@ export class EditCustomerOrderComponent {
     );
   }
 
-  refreshPagAfterButton(redirectedPage: string) {
+  refreshPageAfterButton(redirectedPage: string) {
     setTimeout(() => {
       this.router.navigate([`${redirectedPage}`]);
     }, 2000);
+  }
+
+  cancel() {
+    this.router.navigate(['/customerOrders']);
   }
 }

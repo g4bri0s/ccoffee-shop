@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +15,8 @@ export class EditCoffeeComponent {
     private coffeeService: CoffeeService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
+
 
   editCoffeeForm = new FormGroup({
     id: new FormControl(0, Validators.required),
@@ -58,15 +58,18 @@ export class EditCoffeeComponent {
       name: coffee.name,
       price: coffee.price,
     };
+
     this.coffeeService.editCoffee(id, saveCoffee).subscribe(
       (result) => {
         Swal.fire({
           icon: 'success',
-          title: 'coffee saved',
+          title: 'Coffee saved',
           showConfirmButton: false,
           timer: 1500,
         });
-        setTimeout(function () {}, 2000);
+        setTimeout(() => {
+          this.router.navigate(['/coffees']);
+        }, 2000);
       },
       (error) => {
         Swal.fire({
@@ -79,9 +82,13 @@ export class EditCoffeeComponent {
     );
   }
 
-  refreshPagAfterButton(redirectedPage: string) {
+  refreshPageAfterButton(redirectedPage: string) {
     setTimeout(() => {
       this.router.navigate([`${redirectedPage}`]);
     }, 2000);
+  }
+
+  cancelEdit() {
+    this.router.navigate(['/coffees']);
   }
 }

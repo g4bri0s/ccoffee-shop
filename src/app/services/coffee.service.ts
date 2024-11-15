@@ -13,7 +13,7 @@ export class CoffeeService {
   getCoffee = 'coffees';
   api = environment.api;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCoffees() {
     return this.http.get<ICoffee[]>(`${this.api}/${this.getCoffee}`);

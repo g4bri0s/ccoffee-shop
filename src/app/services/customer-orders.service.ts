@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IOrder } from 'src/app/interfaces/order';
-import { IRegisterOrder } from 'src/app/interfaces/registerOrder';
+import { IOrder } from 'src/app/interfaces/customerOrder';
+import { IRegisterOrder } from 'src/app/interfaces/registerCustomerOrder';
 import { EMPTY, Observable, map, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -10,7 +10,7 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CustomerOrdersService {
-  getOrders = 'orders';
+  getOrders = 'customerOrders';
   api = environment.api;
 
   constructor(private http: HttpClient) {}
