@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICoffee } from 'src/app/interfaces/coffee';
-import { IRegisterCoffee } from 'src/app/interfaces/registerCoffee';
 import { CoffeeService } from 'src/app/services/coffee.service';
 import Swal from 'sweetalert2';
 

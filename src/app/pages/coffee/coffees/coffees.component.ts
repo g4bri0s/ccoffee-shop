@@ -4,7 +4,7 @@ import {CoffeeService } from 'src/app/services/coffee.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-clients',
+  selector: 'app-coffees',
   templateUrl: './coffees.component.html',
   styleUrls: ['./coffees.component.css'],
 })

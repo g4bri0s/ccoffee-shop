@@ -5,7 +5,7 @@ import { CustomerOrdersService } from 'src/app/services/customer-orders.service'
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-clients',
+  selector: 'app-customer-orders',
   templateUrl: './customer-orders.component.html',
   styleUrls: ['./customer-orders.component.css'],
 })
