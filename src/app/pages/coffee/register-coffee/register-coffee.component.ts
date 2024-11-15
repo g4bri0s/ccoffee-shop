@@ -33,7 +33,7 @@ export class RegisterCoffeeComponent {
       (result) => {
         Swal.fire({
           icon: 'success',
-          title: 'Coffeesaved',
+          title: 'Coffee saved',
           showConfirmButton: false,
           timer: 1500,
         });

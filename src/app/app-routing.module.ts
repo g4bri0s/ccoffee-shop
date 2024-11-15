@@ -7,6 +7,7 @@ import { CustomerOrdersComponent } from './pages/customer-order/customer-orders/
 import { RegisterCustomerOrderComponent } from './pages/customer-order/register-customer-order/register-customer-order.component';
 import { EditCustomerOrderComponent } from './pages/customer-order/edit-customer-order/edit-customer-order.component';
 import { ItemComponent } from './pages/item/itens/item.component';
+import { EditItemComponent } from './pages/item/edit-item/edit-item.component';
 
 const routes: Routes = [
   { path: 'coffees', component: CoffeesComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'order/new', component: RegisterCustomerOrderComponent },
   { path: 'order/:id', component: EditCustomerOrderComponent },
   { path: 'itens', component: ItemComponent },
+  { path: 'item/:id', component: EditItemComponent },
 ];
 
 @NgModule({
