@@ -24,7 +24,9 @@ export class RegisterCoffeeComponent {
     const coffee: IRegisterCoffee = {
       name: this.registerCoffeeForm.value.name || '',
       price: this.registerCoffeeForm.value.price || 0,
-    };    const saveCoffee: IRegisterCoffee = {
+    };
+    
+    const saveCoffee: IRegisterCoffee = {
       name: coffee.name,
       price: coffee.price,
     };

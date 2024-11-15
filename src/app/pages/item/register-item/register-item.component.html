@@ -1,1 +1,58 @@
-<p>register-item works!</p>
+<div class="mb-2 mt-2 ms-5">
+    <h1 class="display-6">Register</h1>
+  </div>
+  
+  <hr />
+  
+  <div class="container-fluid ms-5 mt-4">
+    <form [formGroup]="registerItemForm" (ngSubmit)="register()">
+      <div class="row">
+        <div class="col-5">
+          <div class="mb-3">
+            <label for="name" class="form-label">Coffee Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              aria-describedby="inputText"
+              formControlName="name"
+              pattern="[a-zA-Z\s]+"
+              oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')"
+            />
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input
+              placeholder="100.01"
+              type="number"
+              class="form-control"
+              id="price"
+              aria-describedby="inputText"
+              formControlName="price"
+              min="0.00"
+              pattern="\d+"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+          </div>
+        </div>
+      </div>
+        <div class="row">
+        <div class="col-1"></div>
+        <div class="col-2 mt-4">
+          <div class="mb-3 mt-2">
+            <button
+              type="submit"
+              class="btn btn-dark"
+              [disabled]="!registerItemForm.valid"
+              (click)="refreshPagAfterButton('/items')" 
+            >
+            <!-- Alterar para voltar para o pedido que está sendo editado-->
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
