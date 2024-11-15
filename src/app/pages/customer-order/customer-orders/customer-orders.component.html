@@ -8,6 +8,7 @@
       <thead>
         <tr>
           <th scope="col">Name</th>
+          <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
@@ -15,7 +16,7 @@
           <td scope="row">{{ order.customerName }}</td>
           <td>
             <a
-              [routerLink]="['/orders/edit/', order.id]"
+              [routerLink]="['/orders/', order.id]"
               class="btn btn-primary"
             >
               <i class="fa fa-pencil" title="Edit"></i
@@ -32,6 +33,6 @@
     </table>
     <br />
     <div class="d-flex justify-content-end">
-      <a routerLink="/coffee/new" class="btn btn-dark">New order</a>
+      <a routerLink="/order/new" class="btn btn-dark">New order</a>
     </div>
   </div>

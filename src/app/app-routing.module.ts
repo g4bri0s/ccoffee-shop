@@ -10,11 +10,11 @@ import { ItemComponent } from './pages/item/itens/item.component';
 
 const routes: Routes = [
   { path: 'coffees', component: CoffeesComponent },
-  { path: 'register-coffee', component: RegisterCoffeeComponent },
-  { path: 'edit-coffee/:id', component: EditCoffeeComponent },
-  { path: 'customer-orders', component: CustomerOrdersComponent },
-  { path: 'register-customer-order', component: RegisterCustomerOrderComponent },
-  { path: 'edit-customer-order/:id', component: EditCustomerOrderComponent },
+  { path: 'coffee/new', component: RegisterCoffeeComponent },
+  { path: 'coffees/:id', component: EditCoffeeComponent },
+  { path: 'orders', component: CustomerOrdersComponent },
+  { path: 'order/new', component: RegisterCustomerOrderComponent },
+  { path: 'order/:id', component: EditCustomerOrderComponent },
   { path: 'itens', component: ItemComponent },
 ];
 
