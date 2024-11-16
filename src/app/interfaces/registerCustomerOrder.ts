@@ -1,3 +1,3 @@
 export interface IRegisterOrder {
-    customerName: string;
-  }
+  customerName: string;
+}

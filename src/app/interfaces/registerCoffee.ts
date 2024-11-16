@@ -1,4 +1,4 @@
 export interface IRegisterCoffee {
-    name: string;
-    price: number;
-  }
+  name: string;
+  price: number;
+}

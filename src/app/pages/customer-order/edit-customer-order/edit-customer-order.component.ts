@@ -21,7 +21,6 @@ export class EditCustomerOrderComponent {
   editOrderForm = new FormGroup({
     id: new FormControl(0, Validators.required),
     name: new FormControl('', Validators.required),
-    price: new FormControl(0, Validators.required),
   });
 
   ngOnInit() {
@@ -31,7 +30,6 @@ export class EditCustomerOrderComponent {
         this.editOrderForm.setValue({
           id: order.id,
           name: order.customerName,
-          price: 0,
         });
       });
     } else {

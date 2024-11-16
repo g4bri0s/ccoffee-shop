@@ -13,7 +13,7 @@ export class CustomerOrdersService {
   getOrders = 'customerOrders';
   api = environment.api;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getOrder() {
     return this.http.get<IOrder[]>(`${this.api}/${this.getOrders}`);

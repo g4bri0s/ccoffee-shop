@@ -1,38 +1,35 @@
 <div class="mb-2 mt-2 ms-5">
-    <h1 class="display-6">Orders</h1>
+  <h1 class="display-6">Orders</h1>
+</div>
+<hr />
+
+<div class="ms-5 me-5">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 75%;">Customer Name</th>
+        <th scope="col" style="width: 25%;">Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of order">
+        <td scope="row">{{ order.customerName }}</td>
+        <td>
+          <a [routerLink]="['/customerOrders/', order.id]" class="btn btn-primary mx-1">
+            <i class="fa fa-pencil" title="Edit"></i>
+          </a>
+          <a [routerLink]="['/customerOrders/', order.id]" class="btn btn-success mx-1">
+            <i class="fa fa-bars" title="Detail"></i>
+          </a>
+          <button class="btn btn-danger mx-1" (click)="confirmDelete(order.id)">
+            <i class="fa fa-trash" title="Delete"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <div class="d-flex justify-content-end sticky-bottom p-3">
+    <a routerLink="/customerOrders/new" class="btn btn-dark">New order</a>
   </div>
-  <hr />
-  
-  <div class="ms-5 me-5">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col" style="width: 80%;">Customer Name</th>
-          <th scope="col" style="width: 20%;">Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of order">
-          <td scope="row">{{ order.customerName }}</td>
-          <td>
-            <a
-              [routerLink]="['/customerOrders/', order.id]"
-              class="btn btn-primary"
-            >
-              <i class="fa fa-pencil" title="Edit"></i
-            ></a>
-            <button
-              class="btn btn-danger mx-2"
-              (click)="confirmDelete(order.id)"
-            >
-              <i class="fa fa-trash" title="Delete"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
-    <div class="d-flex justify-content-end sticky-bottom p-3">
-      <a routerLink="/customerOrders/new" class="btn btn-dark">New order</a>
-    </div>
-  </div>
+</div>

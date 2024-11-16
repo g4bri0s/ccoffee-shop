@@ -13,7 +13,7 @@ export class ItemService {
   getItem = 'items';
   api = environment.api;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getItems() {
     return this.http.get<IItem[]>(`${this.api}/${this.getItem}`);
