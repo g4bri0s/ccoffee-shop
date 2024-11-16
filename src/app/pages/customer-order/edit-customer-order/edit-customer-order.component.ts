@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IOrder } from 'src/app/interfaces/customerOrder';
+import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import Swal from 'sweetalert2';
 
@@ -26,7 +26,7 @@ export class EditCustomerOrderComponent {
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
-      this.orderService.getOrderById(id).subscribe((order: IOrder) => {
+      this.orderService.getOrderById(id).subscribe((order: ICustomerOrder) => {
         this.editOrderForm.setValue({
           id: order.id,
           name: order.customerName,
@@ -45,14 +45,18 @@ export class EditCustomerOrderComponent {
   edit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    const order: IOrder = {
+    const order: ICustomerOrder = {
       id: this.editOrderForm.value.id || 0,
       customerName: this.editOrderForm.value.name || '',
+      items: null,
+      total: null,
     };
 
-    const saveOrder: IOrder = {
+    const saveOrder: ICustomerOrder = {
       id: order.id,
       customerName: order.customerName,
+      items: null,
+      total: null,
     };
     this.orderService.editOrder(id, saveOrder).subscribe(
       (result) => {

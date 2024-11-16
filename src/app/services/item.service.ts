@@ -5,6 +5,7 @@ import { IItem } from '../interfaces/item';
 import { EMPTY, Observable, map, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { IRegisterItem } from '../interfaces/registerItem';
+import { IItemId } from '../interfaces/itemId';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +20,13 @@ export class ItemService {
     return this.http.get<IItem[]>(`${this.api}/${this.getItem}`);
   }
 
-  getItemById(id: number) {
-    return this.http.get<IItem>(`${this.api}/${this.getItem}/${id}`);
+  getItemById(itemId: IItemId) {
+    return this.http.get<IItem>(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`);
   }
 
-  existItemById(id: number): Observable<boolean> {
+  existItemById(itemId: IItemId): Observable<boolean> {
     return this.http
-      .get<IItem>(`${this.api}/${this.getItem}/${id}`)
+      .get<IItem>(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`)
       .pipe(
         map((response) => {
           return response !== null;
@@ -43,8 +44,8 @@ export class ItemService {
       );
   }
 
-  registerItem(iten: IRegisterItem): Observable<any> {
-    return this.http.post(`${this.api}/${this.getItem}`, iten).pipe(
+  registerItem(item: IRegisterItem): Observable<any> {
+    return this.http.post(`${this.api}/${this.getItem}`, item).pipe(
       tap(() => {
         return of(null);
       }),
@@ -54,11 +55,11 @@ export class ItemService {
     );
   }
 
-  editItem(id: number, iten: IItem) {
-    return this.http.put(`${this.api}/${this.getItem}/${id}`, iten);
+  editItem(itemId: IItemId, item: IItem) {
+    return this.http.put(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`, item);
   }
 
-  deleteItem(id: number) {
-    return this.http.delete(`${this.api}/${this.getItem}/${id}`);
+  deleteItem(itemId: IItemId) {
+    return this.http.delete(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`);
   }
 }

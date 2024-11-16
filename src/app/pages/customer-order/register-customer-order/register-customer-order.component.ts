@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRegisterOrder } from 'src/app/interfaces/registerCustomerOrder';
-import { IOrder } from 'src/app/interfaces/customerOrder';
+import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import Swal from 'sweetalert2';
 
@@ -21,9 +21,11 @@ export class RegisterCustomerOrderComponent {
   });
 
   register() {
-    const order: IOrder = {
+    const order: ICustomerOrder = {
       id: this.registerOrderForm.value.id || 0,
       customerName: this.registerOrderForm.value.customerName || '',
+      items: null,
+      total: null,
     };
 
     const saveOrder: IRegisterOrder = {

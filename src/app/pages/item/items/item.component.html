@@ -1,41 +1,35 @@
 <div class="mb-2 mt-2 ms-5">
-<h1 class="display-6">Items</h1>
+  <h1 class="display-6">Items</h1>
+</div>
+<hr />
+
+<div class="ms-5 me-5">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Coffee</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td scope="row">{{ item.coffee.name }}</td>
+        <td>{{ item.coffee.price | currency : "BRL" }}</td>
+        <td>{{ item.quantity}}</td>
+        <td>
+          <a [routerLink]="['/items/', item.id]" class="btn btn-primary">
+            <i class="fa fa-pencil" title="Edit"></i></a>
+          <button class="btn btn-danger mx-2" (click)="confirmDelete(item.id)">
+            <i class="fa fa-trash" title="Delete"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <div class="d-flex justify-content-end sticky-bottom p-3">
+    <a routerLink="/item/new" class="btn btn-dark">New item</a>
   </div>
-  <hr />
-  
-  <div class="ms-5 me-5">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items">
-          <td scope="row">{{ item.name }}</td>
-          <td>{{ item.price | currency : "BRL" }}</td>
-          <td>
-            <a
-              [routerLink]="['/items/', item.id]"
-              class="btn btn-primary"
-            >
-              <i class="fa fa-pencil" title="Edit"></i
-            ></a>
-            <button
-              class="btn btn-danger mx-2"
-              (click)="confirmDelete(item.id)"
-            >
-              <i class="fa fa-trash" title="Delete"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
-    <div class="d-flex justify-content-end">
-      <a routerLink="/item/new" class="btn btn-dark">New item</a>
-    </div>
-  </div>
+</div>

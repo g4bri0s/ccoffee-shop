@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IOrder } from 'src/app/interfaces/customerOrder';
+import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import Swal from 'sweetalert2';
@@ -10,11 +10,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./customer-orders.component.css'],
 })
 export class CustomerOrdersComponent {
-  order: IOrder[] = [];
-  constructor(private orderService: CustomerOrdersService) {}
+  order: ICustomerOrder[] = [];
+  constructor(private orderService: CustomerOrdersService) { }
 
   ngOnInit() {
-    this.orderService.getOrder().subscribe((result: IOrder[]) => {
+    this.orderService.getOrder().subscribe((result: ICustomerOrder[]) => {
       this.order = result;
     });
   }

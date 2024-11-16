@@ -1,7 +1,8 @@
 import { ICoffee } from "./coffee";
+import { ICustomerOrder } from "./customerOrder";
 
 export interface IRegisterItem {
-  name: string;
-  price: number;
-  coffee: ICoffee
+  coffee: ICoffee;
+  customerOrder: ICustomerOrder;
+  quantity: number;
 }

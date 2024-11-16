@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IOrder } from 'src/app/interfaces/customerOrder';
+import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 import { IRegisterOrder } from 'src/app/interfaces/registerCustomerOrder';
 import { EMPTY, Observable, map, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -16,16 +16,16 @@ export class CustomerOrdersService {
   constructor(private http: HttpClient) { }
 
   getOrder() {
-    return this.http.get<IOrder[]>(`${this.api}/${this.getOrders}`);
+    return this.http.get<ICustomerOrder[]>(`${this.api}/${this.getOrders}`);
   }
 
   getOrderById(id: number) {
-    return this.http.get<IOrder>(`${this.api}/${this.getOrders}/${id}`);
+    return this.http.get<ICustomerOrder>(`${this.api}/${this.getOrders}/${id}`);
   }
 
   existOrderById(id: number): Observable<boolean> {
     return this.http
-      .get<IOrder>(`${this.api}/${this.getOrders}/${id}`)
+      .get<ICustomerOrder>(`${this.api}/${this.getOrders}/${id}`)
       .pipe(
         map((response) => {
           return response !== null;
@@ -54,7 +54,7 @@ export class CustomerOrdersService {
     );
   }
 
-  editOrder(id: number, order: IOrder) {
+  editOrder(id: number, order: ICustomerOrder) {
     return this.http.put(`${this.api}/${this.getOrders}/${id}`, order);
   }
 

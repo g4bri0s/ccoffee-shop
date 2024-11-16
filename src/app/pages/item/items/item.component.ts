@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IItem } from 'src/app/interfaces/item';
+import { IItemId } from 'src/app/interfaces/itemId';
 import { ItemService } from 'src/app/services/item.service';
 import Swal from 'sweetalert2';
 
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
 
 export class ItemComponent {
   items: IItem[] = [];
-  constructor(private ItemService: ItemService) {}
+  constructor(private ItemService: ItemService) { }
 
   ngOnInit() {
     this.ItemService.getItems().subscribe((result: IItem[]) => {
@@ -19,8 +20,8 @@ export class ItemComponent {
     });
   }
 
-  deleteItem(id: number) {
-    this.ItemService.deleteItem(id).subscribe((items) => {
+  deleteItem(itemId: IItemId) {
+    this.ItemService.deleteItem(itemId).subscribe((items) => {
       this.ItemService.getItems();
     });
   }
@@ -33,7 +34,7 @@ export class ItemComponent {
     buttonsStyling: false,
   });
 
-  confirmDelete(id: number) {
+  confirmDelete(itemId: IItemId) {
     this.swalWithBootstrapButtons
       .fire({
         title: 'Are you sure?',
@@ -53,7 +54,7 @@ export class ItemComponent {
             showConfirmButton: false,
             timer: 2000,
           });
-          this.deleteItem(id);
+          this.deleteItem(itemId);
           setTimeout(function () {
             window.location.reload();
           }, 2000);

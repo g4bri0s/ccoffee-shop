@@ -6,6 +6,7 @@ import { IRegisterItem } from 'src/app/interfaces/registerItem';
 import { ICoffee } from 'src/app/interfaces/coffee';
 import { ItemService } from 'src/app/services/item.service';
 import Swal from 'sweetalert2';
+import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 
 @Component({
   selector: 'app-register-item',
@@ -14,35 +15,46 @@ import Swal from 'sweetalert2';
 })
 export class RegisterItemComponent {
 
-  constructor(private itemService: ItemService, private router: Router) {}
+  constructor(private itemService: ItemService, private router: Router) { }
 
   registerItemForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    price: new FormControl(0, Validators.required),
     coffeeId: new FormControl(0, Validators.required),
     coffeeName: new FormControl('', Validators.required),
     coffeePrice: new FormControl(0, Validators.required),
+    customerOrderId: new FormControl(0, Validators.required),
+    customerOrderCustomerName: new FormControl('', Validators.required),
+    quantity: new FormControl(0, Validators.required),
   });
 
   register() {
     const item: IRegisterItem = {
-      name: this.registerItemForm.value.name || '',
-      price: this.registerItemForm.value.price || 0,
       coffee: {
         id: this.registerItemForm.value.coffeeId || 0,
         name: this.registerItemForm.value.coffeeName || '',
         price: this.registerItemForm.value.coffeePrice || 0,
       } as ICoffee,
+      customerOrder: {
+        id: this.registerItemForm.value.customerOrderId || 0,
+        customerName: this.registerItemForm.value.customerOrderCustomerName || '',
+        items: null,
+        total: null,
+      } as ICustomerOrder,
+      quantity: this.registerItemForm.value.quantity || 0,
     };
 
     const saveItem: IRegisterItem = {
-      name: item.name,
-      price: item.price,
       coffee: {
         id: item.coffee.id,
         name: item.coffee.name,
         price: item.coffee.price,
-      } as ICoffee
+      } as ICoffee,
+      customerOrder: {
+        id: item.customerOrder.id,
+        customerName: item.customerOrder.customerName,
+        items: null,
+        total: null,
+      } as ICustomerOrder,
+      quantity: item.quantity,
     };
 
     this.itemService.registerItem(saveItem).subscribe(
@@ -64,10 +76,13 @@ export class RegisterItemComponent {
     );
   };
 
-  refreshPagAfterButton(redirectedPage: string) {
+  refreshPageAfterButton(redirectedPage: string) {
     setTimeout(() => {
       this.router.navigate([`${redirectedPage}`]);
     }, 2000);
   }
+
+  cancel() {
+    this.router.navigate(['/Items']);
+  }
 }
- 

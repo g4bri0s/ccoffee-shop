@@ -3,9 +3,11 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IItem } from 'src/app/interfaces/item';
+import { IItemId } from 'src/app/interfaces/itemId';
 import { ICoffee } from 'src/app/interfaces/coffee';
 import { ItemService } from 'src/app/services/item.service';
 import Swal from 'sweetalert2';
+import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 
 @Component({
   selector: 'app-edit-coffee',
@@ -17,28 +19,34 @@ export class EditItemComponent {
     private itemService: ItemService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   editItemForm = new FormGroup({
-    id: new FormControl(0, Validators.required),
-    name: new FormControl('', Validators.required),
-    price: new FormControl(0, Validators.required),
     coffeeId: new FormControl(0, Validators.required),
     coffeeName: new FormControl('', Validators.required),
     coffeePrice: new FormControl(0, Validators.required),
+    customerOrderId: new FormControl(0, Validators.required),
+    customerOrderCustomerName: new FormControl('', Validators.required),
+    quantity: new FormControl(0, Validators.required),
   });
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (id) {
-      this.itemService.getItemById(id).subscribe((item: IItem) => {
+    const id1 = Number(this.route.snapshot.paramMap.get('id1'));
+    const id2 = Number(this.route.snapshot.paramMap.get('id2'));
+    const itemId: IItemId = {
+      customerOrderId: id1,
+      coffeeId: id2,
+    };
+
+    if (itemId) {
+      this.itemService.getItemById(itemId).subscribe((item: IItem) => {
         this.editItemForm.setValue({
-          id: item.id,
-          name: item.name,
-          price: item.price,
           coffeeId: item.coffee.id,
           coffeeName: item.coffee.name,
           coffeePrice: item.coffee.price,
+          customerOrderId: item.customerOrder.id,
+          customerOrderCustomerName: item.customerOrder.customerName,
+          quantity: item.quantity,
         });
       });
     } else {
@@ -52,30 +60,45 @@ export class EditItemComponent {
   }
 
   edit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id1 = Number(this.route.snapshot.paramMap.get('id1'));
+    const id2 = Number(this.route.snapshot.paramMap.get('id2'));
+    const itemId: IItemId = {
+      customerOrderId: id1,
+      coffeeId: id2,
+    };
 
     const item: IItem = {
-      id: this.editItemForm.value.id || 0,
-      name: this.editItemForm.value.name || '',
-      price: this.editItemForm.value.price || 0,
+      id: itemId,
       coffee: {
         id: this.editItemForm.value.coffeeId || 0,
         name: this.editItemForm.value.coffeeName || '',
         price: this.editItemForm.value.coffeePrice || 0,
       } as ICoffee,
+      customerOrder: {
+        id: this.editItemForm.value.customerOrderId || 0,
+        customerName: this.editItemForm.value.customerOrderCustomerName || '',
+        items: null,
+        total: null,
+      } as ICustomerOrder,
+      quantity: this.editItemForm.value.quantity || 0,
     };
 
     const saveItem: IItem = {
       id: item.id,
-      name: item.name,
-      price: item.price,
       coffee: {
         id: item.coffee.id,
         name: item.coffee.name,
         price: item.coffee.price,
       } as ICoffee,
+      customerOrder: {
+        id: item.customerOrder.id,
+        customerName: item.customerOrder.customerName,
+        items: null,
+        total: null,
+      } as ICustomerOrder,
+      quantity: item.quantity,
     };
-    this.itemService.editItem(id, saveItem).subscribe(
+    this.itemService.editItem(itemId, saveItem).subscribe(
       (result) => {
         Swal.fire({
           icon: 'success',
@@ -83,7 +106,7 @@ export class EditItemComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        setTimeout(function () {}, 2000);
+        setTimeout(function () { }, 2000);
       },
       (error) => {
         Swal.fire({
@@ -96,9 +119,13 @@ export class EditItemComponent {
     );
   }
 
-  refreshPagAfterButton(redirectedPage: string) {
+  refreshPageAfterButton(redirectedPage: string) {
     setTimeout(() => {
       this.router.navigate([`${redirectedPage}`]);
     }, 2000);
+  }
+
+  cancel() {
+    this.router.navigate(['/customerOrders']);
   }
 }
