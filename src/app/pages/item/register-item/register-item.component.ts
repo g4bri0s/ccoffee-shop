@@ -49,7 +49,7 @@ export class RegisterItemComponent implements OnInit {
         price: this.selectedCoffee.price
       });
     }
-  }
+  }  
 
   register(): void {
     const item: IRegisterItem = {
