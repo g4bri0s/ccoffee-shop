@@ -62,4 +62,8 @@ export class ItemService {
   deleteItem(itemId: IItemId) {
     return this.http.delete(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`);
   }
+
+  updateItemQuantity(itemId: IItemId, quantity: number): Observable<void> {
+    return this.http.put<void>(`${this.api}/items/${itemId}`, { quantity });
+  }  
 }
