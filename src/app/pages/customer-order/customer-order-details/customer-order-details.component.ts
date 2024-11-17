@@ -22,7 +22,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const orderId = this.route.snapshot.paramMap.get('id'); // Obtém o ID do pedido da rota
+    const orderId = this.route.snapshot.paramMap.get('id');
     if (orderId) {
       this.loadCustomerOrder(+orderId);
     }
@@ -104,7 +104,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
       });
       return;
     }
-  
+    
     this.itemService.updateItemQuantity(itemId, newQuantity).subscribe({
       next: () => {
         const item = this.customerOrder.items?.find((i) => i.id === itemId);
