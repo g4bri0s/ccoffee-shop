@@ -33,7 +33,11 @@ export class CustomerOrderDetailsComponent implements OnInit {
       next: (result: ICustomerOrder) => {
         this.customerOrder = result;
         console.log('Customer Order:', this.customerOrder);
-        this.isLoading = false;
+        if (!this.customerOrder.items) {
+          this.loadItems(id);
+        } else {
+          this.isLoading = false;
+        }
       },
       error: (err) => {
         console.error('Error loading order:', err);
@@ -44,7 +48,25 @@ export class CustomerOrderDetailsComponent implements OnInit {
         });
         this.isLoading = false;
       },
-    })
+    });
+  }
+  
+  loadItems(orderId: number) {
+    this.itemService.getItemsByOrderId(orderId).subscribe({
+      next: (items) => {
+        this.customerOrder.items = items;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading items:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load the items. Please try again later.',
+        });
+        this.isLoading = false;
+      },
+    });
   }
 
   deleteItem(itemId: IItemId) {

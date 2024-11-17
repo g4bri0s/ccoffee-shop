@@ -24,6 +24,10 @@ export class ItemService {
     return this.http.get<IItem>(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`);
   }
 
+  getItemsByOrderId(orderId: number) {
+    return this.http.get<IItem[]>(`${this.api}/customerOrders/${orderId}`);
+  }  
+
   existItemById(itemId: IItemId): Observable<boolean> {
     return this.http
       .get<IItem>(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`)
