@@ -1,5 +1,6 @@
 <div class="ms-5 me-5">
-    <table class="table table-striped">
+    <div *ngIf="isLoading">Loading...</div>
+    <table *ngIf="!isLoading && customerOrder && customerOrder.items" class="table table-striped">
     <thead>
         <tr>
         <th scope="col">Item Name</th>

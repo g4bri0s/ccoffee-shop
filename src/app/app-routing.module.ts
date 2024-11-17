@@ -18,10 +18,10 @@ const routes: Routes = [
   { path: 'customerOrders', component: CustomerOrdersComponent },
   { path: 'customerOrders/new', component: RegisterCustomerOrderComponent },
   { path: 'customerOrders/:id', component: EditCustomerOrderComponent },
-  { path: 'customerOrders/:id/items', component: CustomerOrderDetailsComponent },
+  { path: 'customerOrders/:id/details', component: CustomerOrderDetailsComponent },
   { path: 'items', component: ItemComponent },
-  { path: 'customerOrders/:id/items/new', component: RegisterItemComponent },
-  { path: 'items/:id1/:id2', component: EditItemComponent },
+  { path: 'customerOrders/:id/items', component: RegisterItemComponent },
+  { path: 'customerOrders/:id1/items/:id2', component: EditItemComponent },
 ];
 
 @NgModule({

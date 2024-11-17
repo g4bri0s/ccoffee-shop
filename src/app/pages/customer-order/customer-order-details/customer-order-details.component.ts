@@ -32,6 +32,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
     this.orderService.getOrderById(id).subscribe({
       next: (result: ICustomerOrder) => {
         this.customerOrder = result;
+        console.log('Customer Order:', this.customerOrder);
         this.isLoading = false;
       },
       error: (err) => {
@@ -43,7 +44,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
         });
         this.isLoading = false;
       },
-    });
+    })
   }
 
   deleteItem(itemId: IItemId) {
