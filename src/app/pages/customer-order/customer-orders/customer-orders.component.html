@@ -18,7 +18,7 @@
           <a [routerLink]="['/customerOrders/', order.id]" class="btn btn-primary mx-1">
             <i class="fa fa-pencil" title="Edit"></i>
           </a>
-          <a [routerLink]="['/customerOrders/', order.id]" class="btn btn-success mx-1">
+          <a [routerLink]="['/customerOrders/', order.id, 'items']" class="btn btn-success mx-1">
             <i class="fa fa-bars" title="Detail"></i>
           </a>
           <button class="btn btn-danger mx-1" (click)="confirmDelete(order.id)">

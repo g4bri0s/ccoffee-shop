@@ -44,7 +44,7 @@ export class ItemService {
       );
   }
 
-  registerItem(item: IRegisterItem): Observable<any> {
+  registerItem(item: IItem): Observable<any> {
     return this.http.post(`${this.api}/${this.getItem}`, item).pipe(
       tap(() => {
         return of(null);

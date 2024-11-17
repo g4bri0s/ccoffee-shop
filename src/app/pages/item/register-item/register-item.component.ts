@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
 import { CoffeeService } from 'src/app/services/coffee.service';
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
-import { IRegisterItem } from 'src/app/interfaces/registerItem';
+import { IItem } from 'src/app/interfaces/item';
 import { ICoffee } from 'src/app/interfaces/coffee';
 import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-register-item',
@@ -76,7 +77,11 @@ export class RegisterItemComponent implements OnInit {
       return;
     }
 
-    const item: IRegisterItem = {
+    const item: IItem = {
+      id: {
+        customerOrderId: this.registerItemForm.value.coffeeId || 0,
+        coffeeId: this.customerOrder.id,
+      },
       coffee: {
         id: this.registerItemForm.value.coffeeId || 0,
         name: this.selectedCoffee?.name || '',
