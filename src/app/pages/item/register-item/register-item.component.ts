@@ -1,10 +1,10 @@
-
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRegisterItem } from 'src/app/interfaces/registerItem';
 import { ICoffee } from 'src/app/interfaces/coffee';
 import { ItemService } from 'src/app/services/item.service';
+import { CoffeeService } from 'src/app/services/coffee.service';  // Serviço para carregar cafés
 import Swal from 'sweetalert2';
 import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 
@@ -13,32 +13,46 @@ import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
   templateUrl: './register-item.component.html',
   styleUrls: ['./register-item.component.css'],
 })
-export class RegisterItemComponent {
+export class RegisterItemComponent implements OnInit {
 
-  constructor(private itemService: ItemService, private router: Router) { }
+  coffees: ICoffee[] = [];  // Lista de cafés disponíveis
+  selectedCoffee: ICoffee | null = null;  // Café selecionado
+
+  constructor(
+    private itemService: ItemService,
+    private coffeeService: CoffeeService,  // Serviço para carregar cafés
+    private router: Router
+  ) { }
 
   registerItemForm = new FormGroup({
     coffeeId: new FormControl(0, Validators.required),
-    coffeeName: new FormControl('', Validators.required),
-    coffeePrice: new FormControl(0, Validators.required),
-    customerOrderId: new FormControl(0, Validators.required),
-    customerOrderCustomerName: new FormControl('', Validators.required),
     quantity: new FormControl(0, Validators.required),
   });
 
-  register() {
+  ngOnInit(): void {
+    // Carregar lista de cafés quando o componente for inicializado
+    this.loadCoffees();
+  }
+
+  loadCoffees(): void {
+    this.coffeeService.getCoffees().subscribe((coffees: ICoffee[]) => {
+      this.coffees = coffees;
+    });
+  }
+
+  onCoffeeChange(): void {
+    const coffeeId = this.registerItemForm.value.coffeeId;
+    this.selectedCoffee = this.coffees.find(coffee => coffee.id === coffeeId) || null;
+  }
+
+  register(): void {
     const item: IRegisterItem = {
       coffee: {
         id: this.registerItemForm.value.coffeeId || 0,
-        name: this.registerItemForm.value.coffeeName || '',
-        price: this.registerItemForm.value.coffeePrice || 0,
+        name: this.selectedCoffee?.name || '',
+        price: this.selectedCoffee?.price || 0,
       } as ICoffee,
-      customerOrder: {
-        id: this.registerItemForm.value.customerOrderId || 0,
-        customerName: this.registerItemForm.value.customerOrderCustomerName || '',
-        items: null,
-        total: null,
-      } as ICustomerOrder,
+      customerOrder: {} as ICustomerOrder,  // Assumindo que o customerOrder será enviado de outro lugar
       quantity: this.registerItemForm.value.quantity || 0,
     };
 
@@ -48,12 +62,7 @@ export class RegisterItemComponent {
         name: item.coffee.name,
         price: item.coffee.price,
       } as ICoffee,
-      customerOrder: {
-        id: item.customerOrder.id,
-        customerName: item.customerOrder.customerName,
-        items: null,
-        total: null,
-      } as ICustomerOrder,
+      customerOrder: {} as ICustomerOrder,  // Atualizar com dados do pedido se necessário
       quantity: item.quantity,
     };
 
@@ -70,19 +79,13 @@ export class RegisterItemComponent {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Unexpected erro',
+          text: 'Unexpected error',
         });
       }
     );
-  };
-
-  refreshPageAfterButton(redirectedPage: string) {
-    setTimeout(() => {
-      this.router.navigate([`${redirectedPage}`]);
-    }, 2000);
   }
 
-  cancel() {
-    this.router.navigate(['/Items']);
+  cancel(): void {
+    this.router.navigate(['/items']);
   }
 }
