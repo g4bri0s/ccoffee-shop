@@ -15,22 +15,22 @@ import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 })
 export class RegisterItemComponent implements OnInit {
 
-  coffees: ICoffee[] = [];  // Lista de cafés disponíveis
-  selectedCoffee: ICoffee | null = null;  // Café selecionado
+  coffees: ICoffee[] = [];
+  selectedCoffee: ICoffee | null = null;
 
   constructor(
     private itemService: ItemService,
-    private coffeeService: CoffeeService,  // Serviço para carregar cafés
+    private coffeeService: CoffeeService,
     private router: Router
   ) { }
 
   registerItemForm = new FormGroup({
     coffeeId: new FormControl(0, Validators.required),
+    price: new FormControl(0),
     quantity: new FormControl(0, Validators.required),
   });
 
   ngOnInit(): void {
-    // Carregar lista de cafés quando o componente for inicializado
     this.loadCoffees();
   }
 
@@ -43,6 +43,12 @@ export class RegisterItemComponent implements OnInit {
   onCoffeeChange(): void {
     const coffeeId = this.registerItemForm.value.coffeeId;
     this.selectedCoffee = this.coffees.find(coffee => coffee.id === coffeeId) || null;
+
+    if (this.selectedCoffee) {
+      this.registerItemForm.patchValue({
+        price: this.selectedCoffee.price
+      });
+    }
   }
 
   register(): void {
@@ -52,7 +58,7 @@ export class RegisterItemComponent implements OnInit {
         name: this.selectedCoffee?.name || '',
         price: this.selectedCoffee?.price || 0,
       } as ICoffee,
-      customerOrder: {} as ICustomerOrder,  // Assumindo que o customerOrder será enviado de outro lugar
+      customerOrder: {} as ICustomerOrder,  
       quantity: this.registerItemForm.value.quantity || 0,
     };
 
@@ -62,7 +68,7 @@ export class RegisterItemComponent implements OnInit {
         name: item.coffee.name,
         price: item.coffee.price,
       } as ICoffee,
-      customerOrder: {} as ICustomerOrder,  // Atualizar com dados do pedido se necessário
+      customerOrder: {} as ICustomerOrder, 
       quantity: item.quantity,
     };
 
