@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItemService } from 'src/app/services/item.service';
+import { CoffeeService } from 'src/app/services/coffee.service';
+import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import { IRegisterItem } from 'src/app/interfaces/registerItem';
 import { ICoffee } from 'src/app/interfaces/coffee';
-import { ItemService } from 'src/app/services/item.service';
-import { CoffeeService } from 'src/app/services/coffee.service';  // Serviço para carregar cafés
-import Swal from 'sweetalert2';
 import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-item',
@@ -14,15 +15,9 @@ import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
   styleUrls: ['./register-item.component.css'],
 })
 export class RegisterItemComponent implements OnInit {
-
+  customerOrder: ICustomerOrder | null = null;
   coffees: ICoffee[] = [];
   selectedCoffee: ICoffee | null = null;
-
-  constructor(
-    private itemService: ItemService,
-    private coffeeService: CoffeeService,
-    private router: Router
-  ) { }
 
   registerItemForm = new FormGroup({
     coffeeId: new FormControl(0, Validators.required),
@@ -30,14 +25,38 @@ export class RegisterItemComponent implements OnInit {
     quantity: new FormControl(0, Validators.required),
   });
 
+  constructor(
+    private itemService: ItemService,
+    private coffeeService: CoffeeService,
+    private customerOrderService: CustomerOrdersService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
+
   ngOnInit(): void {
     this.loadCoffees();
+    this.loadCustomerOrder();
   }
 
   loadCoffees(): void {
     this.coffeeService.getCoffees().subscribe((coffees: ICoffee[]) => {
       this.coffees = coffees;
     });
+  }
+
+  loadCustomerOrder(): void {
+    const customerOrderId = +this.route.snapshot.paramMap.get('id')!;
+    
+    if (customerOrderId) {
+      this.customerOrderService.getOrderById(customerOrderId).subscribe(
+        (order: ICustomerOrder) => {
+          this.customerOrder = order;
+        },
+        (error) => {
+          console.error('Error loading customer order', error);
+        }
+      );
+    }
   }
 
   onCoffeeChange(): void {
@@ -49,30 +68,25 @@ export class RegisterItemComponent implements OnInit {
         price: this.selectedCoffee.price
       });
     }
-  }  
+  }
 
   register(): void {
+    if (!this.customerOrder) {
+      console.error('No customer order found');
+      return;
+    }
+
     const item: IRegisterItem = {
       coffee: {
         id: this.registerItemForm.value.coffeeId || 0,
         name: this.selectedCoffee?.name || '',
         price: this.selectedCoffee?.price || 0,
       } as ICoffee,
-      customerOrder: {} as ICustomerOrder,  
+      customerOrder: this.customerOrder,
       quantity: this.registerItemForm.value.quantity || 0,
     };
 
-    const saveItem: IRegisterItem = {
-      coffee: {
-        id: item.coffee.id,
-        name: item.coffee.name,
-        price: item.coffee.price,
-      } as ICoffee,
-      customerOrder: {} as ICustomerOrder, 
-      quantity: item.quantity,
-    };
-
-    this.itemService.registerItem(saveItem).subscribe(
+    this.itemService.registerItem(item).subscribe(
       (result) => {
         Swal.fire({
           icon: 'success',
