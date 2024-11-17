@@ -1,41 +1,36 @@
 <div class="ms-5 me-5">
-  <div *ngIf="isLoading; else orderDetails">
-    <p>Loading...</p>
-  </div>
-
-  <ng-template #orderDetails>
     <table class="table table-striped">
-      <thead>
+    <thead>
         <tr>
-          <th scope="col">Item Name</th>
-          <th scope="col">Total</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Options</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Total</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Options</th>
         </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
         <tr *ngFor="let item of customerOrder.items">
-          <td scope="row">{{ item.coffee.name }}</td>
-          <td>{{ (item.coffee.price * item.quantity) | currency : 'BRL' }}</td>
-          <td>
+        <td scope="row">{{ item.coffee.name }}</td>
+        <td>{{ (item.coffee.price * item.quantity) | currency : "BRL" }}</td>
+        <td>
             <input
-              type="number"
-              [(ngModel)]="item.quantity"
-              (change)="updateItemQuantity(item.id, item.quantity)"
+            type="number"
+            [value]="item.quantity"
+            class="form-control"
+            (change)="updateItemQuantity(item.id, item.quantity)"
             />
-          </td>
-          <td>
+        </td>
+        <td>
             <button class="btn btn-danger" (click)="confirmDelete(item.id)">
-              <i class="fa fa-trash" title="Delete"></i>
+            <i class="fa fa-trash" title="Delete"></i>
             </button>
-          </td>
+        </td>
         </tr>
-      </tbody>
+    </tbody>
     </table>
-
+    <br />
     <div class="d-flex justify-content-between align-items-center p-3">
-      <strong>Total Order Value: {{ customerOrder.total | currency : 'BRL' }}</strong>
-      <a routerLink="/items/new" class="btn btn-dark">Add Item</a>
+    <strong>Total Order Value: {{ customerOrder.total | currency : "BRL" }}</strong>
+    <a routerLink="/items/new" class="btn btn-dark">Add Item</a>
     </div>
-  </ng-template>
-</div>
+</div>  
