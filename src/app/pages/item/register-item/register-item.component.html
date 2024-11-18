@@ -20,7 +20,9 @@
       <div class="col-2">
         <div class="mb-3">
           <label for="price" class="form-label">Price</label>
-          <input type="text" class="form-control" id="price" [value]="selectedCoffee?.price | currency : 'BRL'" disabled />
+          <input type="text" class="form-control" id="price" [value]="inputValue| currency : 'BRL'" disabled />
+
+
         </div>
       </div>
 

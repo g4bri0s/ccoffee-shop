@@ -19,6 +19,7 @@ export class RegisterItemComponent implements OnInit {
   customerOrder: ICustomerOrder | null = null;
   coffees: ICoffee[] = [];
   selectedCoffee: ICoffee | null = null;
+  inputValue: number = 0.00;
 
   registerItemForm = new FormGroup({
     coffeeId: new FormControl(0, Validators.required),
@@ -47,7 +48,7 @@ export class RegisterItemComponent implements OnInit {
 
   loadCustomerOrder(): void {
     const customerOrderId = +this.route.snapshot.paramMap.get('id')!;
-    
+
     if (customerOrderId) {
       this.customerOrderService.getOrderById(customerOrderId).subscribe(
         (order: ICustomerOrder) => {
@@ -62,14 +63,19 @@ export class RegisterItemComponent implements OnInit {
 
   onCoffeeChange(): void {
     const coffeeId = this.registerItemForm.value.coffeeId;
-    this.selectedCoffee = this.coffees.find(coffee => coffee.id === coffeeId) || null;
-
-    if (this.selectedCoffee) {
-      this.registerItemForm.patchValue({
-        price: this.selectedCoffee.price
-      });
+    if (coffeeId) {
+      this.coffeeService.getCoffeeById(coffeeId).subscribe(
+        (coffeeFound: ICoffee) => {
+          this.inputValue = coffeeFound.price;
+        },
+        (error) => {
+          console.error('Error fetching coffee:', error);
+          // Handle error if needed
+        }
+      );
     }
   }
+
 
   register(): void {
     if (!this.customerOrder) {
