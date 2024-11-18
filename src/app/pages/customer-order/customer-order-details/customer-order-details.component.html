@@ -1,18 +1,23 @@
 <div class="ms-5 me-5">
     <div *ngIf="isLoading">Loading...</div>
+    <br />
+    <div class="d-flex justify-content-between align-items-center p-3">
+    <h2 style="font-weight: bold">Customer Name: {{ customerOrder.customerName}}</h2>
+    </div>
     <table *ngIf="!isLoading && customerOrder && customerOrder.items" class="table table-striped">
     <thead>
         <tr>
-        <th scope="col">Item Name</th>
-        <th scope="col">Total</th>
+        <th scope="col">Coffee</th>
+        <th scope="col">Price</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Sub-Total</th>
         <th scope="col">Options</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of customerOrder.items">
         <td scope="row">{{ item.coffeeName }}</td>
-        <td>{{ (item.coffeePrice * item.quantity) | currency : "BRL" }}</td>
+        <td>{{ (item.coffeePrice) | currency : "BRL" }}</td>
         <td>
             <input
             type="number"
@@ -21,6 +26,7 @@
             (change)="updateItemQuantity(customerOrder.id ,item.coffeeId, item.quantity)"
             />
         </td>
+        <td>{{ (item.coffeePrice * item.quantity) | currency : "BRL" }}</td>
         <td>
             <button class="btn btn-danger" (click)="confirmDelete(customerOrder.id, item.coffeeId)">
             <i class="fa fa-trash" title="Delete"></i>
@@ -30,8 +36,12 @@
     </tbody>
     </table>
     <br />
-    <div class="d-flex justify-content-between align-items-center p-3">
+    <div class="d-flex justify-content-end p-3">
     <strong>Total Order Value: {{ customerOrder.total | currency : "BRL" }}</strong>
+    </div>
+    <br />
+    <div class="d-flex justify-content-end p-3">
+    <a [routerLink]="['/customerOrders']" class="btn btn-secondary ms-1">Cancel</a>
     <a [routerLink]="['/customerOrders', customerOrder.id, 'items', 'new']" class="btn btn-dark">Add Item</a>
     </div>
 </div>  

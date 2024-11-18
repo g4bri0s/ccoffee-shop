@@ -69,6 +69,6 @@ export class ItemService {
   }
 
   updateItemQuantity(itemId: IItemId, quantity: number): Observable<void> {
-    return this.http.put<void>(`${this.api}/items/${itemId}`, { quantity });
+    return this.http.put<void>(`${this.api}/items/${itemId.customerOrderId}/${itemId.coffeeId}`, { customerOrder: { id: itemId.customerOrderId}, coffee: { id: itemId.coffeeId}, quantity });
   }  
 }
