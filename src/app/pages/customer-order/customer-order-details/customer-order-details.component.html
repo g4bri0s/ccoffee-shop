@@ -32,6 +32,6 @@
     <br />
     <div class="d-flex justify-content-between align-items-center p-3">
     <strong>Total Order Value: {{ customerOrder.total | currency : "BRL" }}</strong>
-    <a [routerLink]="['/customerOrders', customerOrder.id, 'items', 'new']" class="btn btn-dark">Add Item</a>
+    <a [routerLink]="['/customerOrders', customerOrder.id, 'items']" class="btn btn-dark">Add Item</a>
     </div>
 </div>  
