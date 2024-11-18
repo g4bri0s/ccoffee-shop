@@ -85,6 +85,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
           text: 'The item has been removed from the order.',
           timer: 2000,
         });
+        this.ngOnInit();
       },
       error: (err) => {
         console.error('Error deleting item:', err);

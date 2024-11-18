@@ -92,25 +92,19 @@ export class RegisterItemComponent implements OnInit {
     };
 
     this.itemService.registerItem(item).subscribe(
-      (result) => {
+      () => {
         Swal.fire({
           icon: 'success',
           title: 'Item saved',
           showConfirmButton: false,
           timer: 1500,
         });
-      },
-      (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Unexpected error',
-        });
       }
     );
   }
 
   cancel(): void {
-    this.router.navigate(['/items']);
+    const orderId = this.route.snapshot.paramMap.get('id');
+    this.router.navigate(['/customerOrders', orderId, 'details']);
   }
 }
