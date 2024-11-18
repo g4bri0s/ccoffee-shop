@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IItem } from '../interfaces/item';
+import { IItemDto } from '../interfaces/itemSla';
 import { EMPTY, Observable, map, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { IRegisterItem } from '../interfaces/registerItem';
@@ -17,15 +18,15 @@ export class ItemService {
   constructor(private http: HttpClient) { }
 
   getItems() {
-    return this.http.get<IItem[]>(`${this.api}/${this.getItem}`);
+    return this.http.get<IItemDto[]>(`${this.api}/${this.getItem}`);
   }
 
   getItemById(itemId: IItemId) {
-    return this.http.get<IItem>(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`);
+    return this.http.get<IItemDto>(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`);
   }
 
   getItemsByOrderId(orderId: number) {
-    return this.http.get<IItem[]>(`${this.api}/customerOrders/${orderId}`);
+    return this.http.get<IItemDto[]>(`${this.api}/customerOrders/${orderId}`);
   }  
 
   existItemById(itemId: IItemId): Observable<boolean> {
@@ -48,7 +49,7 @@ export class ItemService {
       );
   }
 
-  registerItem(item: IItem): Observable<any> {
+  registerItem(item: IItemDto): Observable<any> {
     return this.http.post(`${this.api}/${this.getItem}`, item).pipe(
       tap(() => {
         return of(null);
@@ -59,7 +60,7 @@ export class ItemService {
     );
   }
 
-  editItem(itemId: IItemId, item: IItem) {
+  editItem(itemId: IItemId, item: IItemDto) {
     return this.http.put(`${this.api}/${this.getItem}/${itemId.customerOrderId}/${itemId.coffeeId}`, item);
   }
 

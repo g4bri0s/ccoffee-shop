@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
 import { CoffeeService } from 'src/app/services/coffee.service';
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
-import { IItem } from 'src/app/interfaces/item';
+import { IItemDto } from 'src/app/interfaces/itemSla';
 import { ICoffee } from 'src/app/interfaces/coffee';
 import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 import Swal from 'sweetalert2';
@@ -77,7 +77,7 @@ export class RegisterItemComponent implements OnInit {
       return;
     }
 
-    const item: IItem = {
+    const item: IItemDto = {
       id: {
         customerOrderId: this.registerItemForm.value.coffeeId || 0,
         coffeeId: this.customerOrder.id,

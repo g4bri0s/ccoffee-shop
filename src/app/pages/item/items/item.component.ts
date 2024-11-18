@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IItem } from 'src/app/interfaces/item';
 import { IItemId } from 'src/app/interfaces/itemId';
+import { IItemDto } from 'src/app/interfaces/itemSla';
 import { ItemService } from 'src/app/services/item.service';
 import Swal from 'sweetalert2';
 
@@ -11,11 +11,11 @@ import Swal from 'sweetalert2';
 })
 
 export class ItemComponent {
-  items: IItem[] = [];
+  items: IItemDto[] = [];
   constructor(private ItemService: ItemService) { }
 
   ngOnInit() {
-    this.ItemService.getItems().subscribe((result: IItem[]) => {
+    this.ItemService.getItems().subscribe((result: IItemDto[]) => {
       this.items = result;
     });
   }

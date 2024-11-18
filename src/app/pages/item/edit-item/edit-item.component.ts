@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IItem } from 'src/app/interfaces/item';
+import { IItemDto } from 'src/app/interfaces/itemSla';
 import { IItemId } from 'src/app/interfaces/itemId';
 import { ICoffee } from 'src/app/interfaces/coffee';
 import { ItemService } from 'src/app/services/item.service';
@@ -39,7 +40,7 @@ export class EditItemComponent {
     };
 
     if (itemId) {
-      this.itemService.getItemById(itemId).subscribe((item: IItem) => {
+      this.itemService.getItemById(itemId).subscribe((item: IItemDto) => {
         this.editItemForm.setValue({
           coffeeId: item.coffee.id,
           coffeeName: item.coffee.name,
@@ -67,7 +68,7 @@ export class EditItemComponent {
       coffeeId: id2,
     };
 
-    const item: IItem = {
+    const item: IItemDto = {
       id: itemId,
       coffee: {
         id: this.editItemForm.value.coffeeId || 0,
@@ -83,7 +84,7 @@ export class EditItemComponent {
       quantity: this.editItemForm.value.quantity || 0,
     };
 
-    const saveItem: IItem = {
+    const saveItem: IItemDto = {
       id: item.id,
       coffee: {
         id: item.coffee.id,

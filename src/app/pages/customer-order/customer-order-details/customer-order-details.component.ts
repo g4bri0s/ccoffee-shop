@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICustomerOrder } from 'src/app/interfaces/customerOrder';
 import { IItemId } from 'src/app/interfaces/itemId';
+import { IItemDto } from 'src/app/interfaces/itemSla';
 import { CustomerOrdersService } from 'src/app/services/customer-orders.service';
 import { ItemService } from 'src/app/services/item.service';
 import Swal from 'sweetalert2';
@@ -36,6 +37,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
         if (!this.customerOrder.items) {
           this.loadItems(id);
         } else {
+          this.customerOrder.items = result.items;
           this.isLoading = false;
         }
       },
@@ -54,7 +56,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
   loadItems(orderId: number) {
     this.itemService.getItemsByOrderId(orderId).subscribe({
       next: (items) => {
-        this.customerOrder.items = items;
+        
         this.isLoading = false;
       },
       error: (err) => {
