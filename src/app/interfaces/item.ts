@@ -3,9 +3,9 @@ import { ICustomerOrder } from "./customerOrder";
 import { IItemId } from "./itemId";
 
 export interface IItem {
-  id: IItemId;
-  coffee: ICoffee;
-  customerOrder: ICustomerOrder;
+  coffeeId: number;
+  coffeeName: string;
+  coffeePrice: number;
   quantity: number;
 }
 

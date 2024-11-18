@@ -50,7 +50,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
       },
     });
   }
-  
+
   loadItems(orderId: number) {
     this.itemService.getItemsByOrderId(orderId).subscribe({
       next: (items) => {
@@ -69,11 +69,12 @@ export class CustomerOrderDetailsComponent implements OnInit {
     });
   }
 
-  deleteItem(itemId: IItemId) {
+  deleteItem(customerOrderId: number, coffeeId: number) {
+    const itemId: IItemId = { customerOrderId, coffeeId };
     this.itemService.deleteItem(itemId).subscribe({
       next: () => {
         this.customerOrder.items = this.customerOrder.items?.filter(
-          (item) => item.id !== itemId
+          (item) => itemId !== itemId
         ) || null;
 
         Swal.fire({
@@ -94,7 +95,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
     });
   }
 
-  confirmDelete(itemId: IItemId) {
+  confirmDelete(customerOrderId: number, coffeeId: number) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -105,7 +106,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.deleteItem(itemId);
+        this.deleteItem(customerOrderId, coffeeId);
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire({
           icon: 'error',
@@ -117,7 +118,7 @@ export class CustomerOrderDetailsComponent implements OnInit {
     });
   }
 
-  updateItemQuantity(itemId: IItemId, newQuantity: number) {
+  updateItemQuantity(customerOrderId: number, coffeeId: number , newQuantity: number) {
     if (newQuantity <= 0) {
       Swal.fire({
         icon: 'error',
@@ -127,10 +128,10 @@ export class CustomerOrderDetailsComponent implements OnInit {
       });
       return;
     }
-    
+    const itemId: IItemId = { customerOrderId, coffeeId };
     this.itemService.updateItemQuantity(itemId, newQuantity).subscribe({
       next: () => {
-        const item = this.customerOrder.items?.find((i) => i.id === itemId);
+        const item = this.customerOrder.items?.find((i) => i.coffeeId === coffeeId);
         if (item) {
           item.quantity = newQuantity;
         }

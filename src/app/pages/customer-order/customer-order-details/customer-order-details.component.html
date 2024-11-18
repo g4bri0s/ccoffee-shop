@@ -11,18 +11,18 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of customerOrder.items">
-        <td scope="row">{{ item.coffee.name }}</td>
-        <td>{{ (item.coffee.price * item.quantity) | currency : "BRL" }}</td>
+        <td scope="row">{{ item.coffeeName }}</td>
+        <td>{{ (item.coffeePrice * item.quantity) | currency : "BRL" }}</td>
         <td>
             <input
             type="number"
             [value]="item.quantity"
             class="form-control"
-            (change)="updateItemQuantity(item.id, item.quantity)"
+            (change)="updateItemQuantity(customerOrder.id ,item.coffeeId, item.quantity)"
             />
         </td>
         <td>
-            <button class="btn btn-danger" (click)="confirmDelete(item.id)">
+            <button class="btn btn-danger" (click)="confirmDelete(customerOrder.id, item.coffeeId)">
             <i class="fa fa-trash" title="Delete"></i>
             </button>
         </td>
